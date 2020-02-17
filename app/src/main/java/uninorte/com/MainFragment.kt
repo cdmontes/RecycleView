@@ -9,6 +9,7 @@ import android.view.ViewGroup
 
 /**
  * A simple [Fragment] subclass.
+ *
  */
 class MainFragment : Fragment() {
 
