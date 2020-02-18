@@ -10,7 +10,10 @@ import kotlinx.android.synthetic.main.row.view.*
 import uninorte.com.data.User
 
 class MyUserRecyclerViewAdapter(
-    private val mValues: List<User>) : RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>() {
+    private val mValues: List<User>,
+    private val mListener: onListInteraction
+    ) : RecyclerView.Adapter<MyUserRecyclerViewAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -24,6 +27,14 @@ class MyUserRecyclerViewAdapter(
     override fun onBindViewHolder(holder: MyUserRecyclerViewAdapter.ViewHolder, position: Int) {
         val item = mValues[position]
         holder.textView.text = item.nombre
+
+        holder.mView.setOnClickListener{
+            mListener?.onListItemInteraction(item)
+        }
+
+        holder.button.setOnClickListener{
+            mListener?.onListButtonInteraction(item)
+        }
     }
 
     public fun updateData(){
@@ -34,5 +45,10 @@ class MyUserRecyclerViewAdapter(
         val button : Button = mView.buttonDeleteUser
         val textView : TextView =mView.textViewUserName
 
+    }
+
+    interface onListInteraction {
+        fun onListItemInteraction(item : User?)
+        fun onListButtonInteraction(item : User?)
     }
 }
